@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Catálogo mayorista de vidrio soplado · Demo de Vonoa</title>
+<meta name="description" content="Su cliente escoge piezas, colores y cantidades; el precio baja solo por volumen y el pedido le llega armado por WhatsApp. Demo con piezas de ejemplo.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Catálogo mayorista de vidrio soplado">
+<meta property="og:description" content="Precio por volumen, existencias y pedido armado por WhatsApp. Demo de Vonoa con piezas de ejemplo.">
+<meta property="og:image" content="https://vonoaweb.github.io/vidrio-mayoreo-demo/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://vonoaweb.github.io/vidrio-mayoreo-demo/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="aviso" id="aviso">Demo de <b>Vonoa</b> · piezas y precios de ejemplo · disponible hasta el <b id="aviso-fecha"></b></div>
+
+<header class="top">
+  <div class="wrap top-in">
+    <div>
+      <div class="marca" id="marca">Vidrio soplado de ejemplo</div>
+      <div class="spec" id="ciudad">Mayoreo · Tonalá, Jal.</div>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Vistas de la demo">
+      <button role="tab" id="tab-cliente" aria-selected="true" aria-controls="vista-cliente">Lo que ve su cliente</button>
+      <button role="tab" id="tab-panel" aria-selected="false" aria-controls="vista-panel">Su panel</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- ================= VISTA DEL CLIENTE ================= -->
+  <section id="vista-cliente" role="tabpanel" aria-labelledby="tab-cliente">
+    <div class="wrap">
+      <div class="intro">
+        <div>
+          <p class="spec">Catálogo de mayoreo</p>
+          <h1>Escoja, y el precio baja solo</h1>
+          <p class="sub">Elija piezas, colores y cantidades. Cada pieza baja de precio al llegar a la docena y a las cuatro docenas, se ve qué hay en existencia y qué se fabrica sobre pedido, y el pedido le llega armado por WhatsApp.</p>
+        </div>
+        <ul class="reglas" id="reglas" aria-label="Reglas de mayoreo"></ul>
+      </div>
+
+      <ul class="grid" id="grid"></ul>
+    </div>
+
+    <div class="barra" id="barra" aria-live="polite">
+      <div class="wrap barra-in">
+        <div class="resumen">
+          <div class="total" id="total">$0</div>
+          <div class="spec" id="detalle">0 piezas</div>
+          <div class="falta" id="falta"></div>
+          <div class="po-aviso" id="po"></div>
+        </div>
+        <button class="btn-wa" id="enviar" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3Z"/></svg>
+          Enviar pedido por WhatsApp
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PANEL DEL FABRICANTE ================= -->
+  <section id="vista-panel" role="tabpanel" aria-labelledby="tab-panel" hidden>
+    <div class="wrap panel">
+      <p class="spec">Lo hace usted cuando quiera · 1 minuto</p>
+      <h1>Sus precios y su existencia</h1>
+      <p class="sub">Cambie un número y el catálogo completo se actualiza: el precio de cada pieza, el descuento por volumen y lo que ya no hay en existencia. Ya no contesta precios uno por uno.</p>
+
+      <form id="form-panel" class="reglas-form" novalidate>
+        <label><span>Descuento desde 12 piezas</span><span class="campo"><input type="number" inputmode="decimal" min="0" max="60" step="1" name="d12">%</span><span class="spec">por pieza</span></label>
+        <label><span>Descuento desde 48 piezas</span><span class="campo"><input type="number" inputmode="decimal" min="0" max="60" step="1" name="d48">%</span><span class="spec">por pieza</span></label>
+        <label><span>Pedido mínimo de mayoreo</span><span class="campo">$<input type="number" inputmode="decimal" min="0" step="100" name="minimo"></span><span class="spec">por pedido</span></label>
+
+        <table class="tabla" id="tabla">
+          <thead><tr><th>Pieza</th><th>Precio</th><th>Existencia</th></tr></thead>
+          <tbody id="tabla-cuerpo"></tbody>
+        </table>
+
+        <button type="submit" class="btn">Publicar cambios</button>
+        <p class="ok" id="ok" role="status"></p>
+      </form>
+
+      <div class="ejemplo">
+        <p class="spec">Así cambia un pedido</p>
+        <p id="ej-pieza"></p>
+      </div>
+
+      <ul class="lista-beneficios">
+        <li><b>Precio por volumen automático</b>: su cliente ve cuánto ahorra al subir de cantidad.</li>
+        <li><b>Existencia a la vista</b>: lo que hay se entrega; lo demás se marca sobre pedido con sus días de fabricación.</li>
+        <li><b>Pedidos completos por WhatsApp</b>: pieza, color, cantidad y total, sin ir y venir de mensajes.</li>
+        <li><b>Mínimo de compra</b> que el sistema hace respetar solo.</li>
+      </ul>
+      <p class="nota">En la versión real este panel lleva contraseña y el catálogo es el suyo, con sus fotos y sus colores. Los precios y piezas de esta demo son de ejemplo; no son de ningún taller.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="wrap">
+    <p><b>Hecho por Vonoa</b> · páginas web, automatizaciones y software a la medida en Guadalajara</p>
+    <p class="spec">WhatsApp 56 4464 5574</p>
+  </div>
+</footer>
+
+<div class="vencido" id="vencido" role="alertdialog" aria-labelledby="venc-t" hidden>
+  <div>
+    <p class="spec">Demo de Vonoa</p>
+    <h2 id="venc-t">Este demo ya venció</h2>
+    <p>Estuvo disponible hasta el <span id="venc-fecha"></span>. Si le interesa tenerlo con su catálogo, sus fotos y sus precios, escríbame.</p>
+    <a id="venc-wa" href="https://wa.me/525644645574" rel="noopener">Escribir por WhatsApp</a>
+  </div>
+</div>
+
+<script src="datos.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
